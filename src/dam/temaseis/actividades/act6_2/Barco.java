@@ -7,7 +7,7 @@ package dam.temaseis.actividades.act6_2;
  * @version 1.0
  */
 public class Barco {
-	private int fila, eslora, contadorTocado, posicion;
+	private int fila, eslora, contadorTocado, posicion, numCoordenadas = 0;
 	private final int MAX_ESLORA = 4;
 	private final int MIN_ESLORA = 2;
 	private boolean tocado, hundido;
@@ -30,8 +30,36 @@ public class Barco {
 		this.posicion = pos;
 		// Se crea un array con un cierto número de coordenadas
 		// según la eslora del barco.
-		this.coordenadas = new Coordenada[esl];
+		this.coordenadas = new Coordenada[this.eslora];
 	}
+
+	public void addCoordenada(Coordenada coord) {
+		if(this.numCoordenadas < this.eslora) {
+			this.coordenadas[numCoordenadas] = coord;
+			this.numCoordenadas++;
+		}
+	}
+
+	public void addTocada(Coordenada coord) {
+		for(Coordenada c : this.coordenadas) {
+			System.out.println("Ha entrao al método " + c.getX() + " " + coord.getX());
+			if(c.getX() == coord.getX() && c.getY() == coord.getY()) {
+				coord.tocada = true;
+				System.out.println("Has tocado la coordenada " + coord.toString());
+			}
+		}
+	}
+	
+	public boolean comprobarHundido() {
+		boolean hundido = true;
+		for(Coordenada c : this.coordenadas) {
+			if(!c.tocada) {
+				hundido = false;
+			}
+		}
+		return hundido;
+	}
+	
 	public int getFila() {
 		return fila;
 	}
@@ -69,5 +97,15 @@ public class Barco {
 	}
 	public boolean isHundido() {
 		return hundido;
+	}
+
+	public void getCoordenadas() {
+		try {
+			for(Coordenada coord : this.coordenadas) {
+				System.out.println(coord.toString());
+			}
+		} catch (NullPointerException e) {
+			System.out.println("El barco todavía no ha sido añadido al tablero.");
+		}
 	}
 }

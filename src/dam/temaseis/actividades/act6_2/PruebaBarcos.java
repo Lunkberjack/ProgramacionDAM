@@ -17,14 +17,21 @@ public class PruebaBarcos {
 		// Se deberían añadir de forma aleatoria y sin enseñar las posiciones al usuario.
 		// La B de barco es para hacer más fáciles las pruebas.
 		Barco dreadnought = new Barco(1, 2, 4);
+		// Dará error. Por experiencia. He añadido manejo de excepciones.
+		dreadnought.getCoordenadas();
+		// El Yamato se superpone y no se coloca en el tablero.
 		Barco yamato = new Barco(1, 2, 2);
 		Barco bismarck = new Barco(8, 5, 3);
 		Tablero oceano = new Tablero(8);
 		oceano.aniadirBarco(dreadnought);
+		System.out.println("Coordenadas del Dreadnought: ");
+		dreadnought.getCoordenadas();
 		oceano.aniadirBarco(yamato);
 		oceano.aniadirBarco(bismarck);
-		// No deja añadir más de tres barcos.
-		oceano.aniadirBarco(new Barco(3, 2, 2));
+		// No deja añadir más de tres barcos. (Recordemos que uno no se pudo
+		// colocar y por tanto no son cuatro, sino tres).
+		Barco akagi = new Barco(3, 2, 2);
+		oceano.aniadirBarco(akagi);
 		oceano.aniadirBarco(new Barco(5, 6, 3));
 
 		

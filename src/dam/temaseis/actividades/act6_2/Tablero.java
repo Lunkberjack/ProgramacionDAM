@@ -32,8 +32,9 @@ public class Tablero {
 	}
 	/**
 	 * Se crea el tablero desde aquí. Rellena todo de agua.
+	 * Private porque solo se debe llamar desde el constructor.
 	 */
-	public void rellenarTablero() {
+	private void rellenarTablero() {
 		// Para los números de columna.
 		System.out.print(" ");
 		for(int i = 0; i < this.DIMENSION; i++) {
@@ -93,11 +94,12 @@ public class Tablero {
 					}
 				}
 				// El barco solo se empieza a "pintar" cuando se confirma que ninguna de sus casillas
-				// está ocupada. Si no, se podría pintar un trozo de barco.
+				// está ocupada. Si no, se podría pintar un trozo de barco delante o detrás de otro.
 				if(!prohibido) {
 					for(int i = barco.getFila()-1; i < barco.getFila(); i++) {
 						for (int j = barco.getPosicion()-1; j < posicionFinal-1; j++) {
 							this.casillas[i][j] = 'B';
+							barco.addCoordenada(new Coordenada(i+1, j+1));
 						}
 					}
 					// Se añade el barco al array.
@@ -121,12 +123,19 @@ public class Tablero {
 	 * @param columna
 	 */
 	public void recorrerDisparo(int fila, int columna) {
-		if(this.casillas[fila-1][columna-1] == 'B') {
+		Coordenada coordenada = new Coordenada(fila-1, columna-1);
+		if(this.casillas[coordenada.getX()][coordenada.getY()] == 'B') {
 			this.casillas[fila-1][columna-1] = 'T';
 			System.out.println("\nHas TOCADO un barco\n\n");
-			// ¿Cómo se podría saber qué objeto es el tocado?
-			// Para actualizar su propio booleano y controlar 
-			// que se hunda.
+			for(Barco b : this.barcos) {
+				b.addTocada(coordenada);
+			}
+			// A ver si toca alguno de los barcos.
+			for(Barco b : this.barcos) {
+				if(b.comprobarHundido()) {
+					System.out.println("Has HUNDIDO un barco :)");
+				}
+			}
 		} else {
 			System.out.println("Agua\n\n");
 		}
