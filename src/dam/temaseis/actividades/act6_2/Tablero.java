@@ -31,11 +31,11 @@ public class Tablero {
 		this.rellenarTablero();
 	}
 	/**
-	 * Se crea el tablero desde aquí. Rellena todo de agua.
+	 * Se crea el tablero desde aquï¿½. Rellena todo de agua.
 	 * Private porque solo se debe llamar desde el constructor.
 	 */
 	private void rellenarTablero() {
-		// Para los números de columna.
+		// Para los nï¿½meros de columna.
 		System.out.print(" ");
 		for(int i = 0; i < this.DIMENSION; i++) {
 			System.out.print("  " + (i+1));
@@ -43,7 +43,7 @@ public class Tablero {
 		System.out.println("\n  --------------------");
 
 		for(int i = 0; i < this.DIMENSION; i++) {
-			// Para los números de fila.
+			// Para los nï¿½meros de fila.
 			System.out.print(i + 1 + "| ");
 			for(int j = 0; j < this.DIMENSION; j++) {
 				// A de agua, por ahora.
@@ -64,7 +64,7 @@ public class Tablero {
 		}
 		System.out.println("\n  -----------------------");
 		for(int i = 0; i < this.DIMENSION; i++) {
-			// Para los números de fila.
+			// Para los nï¿½meros de fila.
 			System.out.print(i + 1 + "| ");
 			for(int j = 0; j < this.DIMENSION; j++) {
 				System.out.print(casillas[i][j] + "  ");
@@ -75,7 +75,7 @@ public class Tablero {
 		System.out.println();
 	}
 	/**
-	 * Comprueba que el barco se pueda añadir y, si es el caso, lo añade.
+	 * Comprueba que el barco se pueda aï¿½adir y, si es el caso, lo aï¿½ade.
 	 * @param barco
 	 */
 	public void aniadirBarco(Barco barco) {
@@ -88,14 +88,14 @@ public class Tablero {
 				// Solo barcos horizontales.
 				for(int i = barco.getFila()-1; i < barco.getFila(); i++) {
 					for (int j = barco.getPosicion()-1; j < posicionFinal-1; j++) {
-						// Así no se superponen barcos.
+						// Asï¿½ no se superponen barcos.
 						if(this.casillas[i][j] != 'A') {
 							prohibido = true;
 						}
 					}
 				}
 				// El barco solo se empieza a "pintar" cuando se confirma que ninguna de sus casillas
-				// está ocupada. Si no, se podría pintar un trozo de barco delante o detrás de otro.
+				// estï¿½ ocupada. Si no, se podrï¿½a pintar un trozo de barco delante o detrï¿½s de otro.
 				if(!prohibido) {
 					for(int i = barco.getFila()-1; i < barco.getFila(); i++) {
 						for (int j = barco.getPosicion()-1; j < posicionFinal-1; j++) {
@@ -103,18 +103,18 @@ public class Tablero {
 							barco.addCoordenada(new Coordenada(i+1, j+1));
 						}
 					}
-					// Se añade el barco al array.
+					// Se aï¿½ade el barco al array.
 					this.barcos[numBarcos] = barco;
 					this.numBarcos++;
 					this.mostrarTablero();
-					System.out.println("Se ha añadido un barco de coordenadas: \n\n");
-					// Aquí manejar las coordenadas en las que se coloca el barco
+					System.out.println("Se ha aï¿½adido un barco de coordenadas: \n\n");
+					// Aquï¿½ manejar las coordenadas en las que se coloca el barco
 				} else {
-					System.out.println("Elige una posición en la que los barcos no se superpongan.\n\n");
+					System.out.println("Elige una posiciï¿½n en la que los barcos no se superpongan.\n\n");
 				}
 			}
 		} else {
-			System.out.println("Demasiados barcos. Solo se pueden añadir " + this.MAX_BARCOS + ".\n\n");
+			System.out.println("Demasiados barcos. Solo se pueden aï¿½adir " + this.MAX_BARCOS + ".\n\n");
 			this.mostrarTablero();
 		}
 	}
@@ -136,7 +136,7 @@ public class Tablero {
 				if(b.comprobarHundido()) {
 					for(Coordenada c : b.coordenadas) {
 						this.casillas[c.getX()-1][c.getY()-1] = 'H';
-						// Ya no están tocadas: así no aparece el mensaje
+						// Ya no estï¿½n tocadas: asï¿½ no aparece el mensaje
 						// de que has hundido un barco aunque sea un turno
 						// posterior.
 						c.tocada = false;
@@ -152,7 +152,6 @@ public class Tablero {
 		this.mostrarTablero();
 	}
 	
-	
 	/**
 	 * Se comprueba que todos los barcos se hayan hundido.
 	 * @return ganado
@@ -160,7 +159,7 @@ public class Tablero {
 	public boolean comprobarGanado() {
 		boolean ganado = true;
 		for(Barco b : this.barcos) {
-			// Si algún barco no se ha hundido, no se ha ganado.
+			// Si algï¿½n barco no se ha hundido, no se ha ganado.
 			if(!b.isHundido()) {
 				ganado = false;
 			}
