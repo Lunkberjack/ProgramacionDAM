@@ -7,8 +7,11 @@ package dam.temaseis.actividades.act6_2;
  * @version 1.0
  */
 public class Barco {
-	private int fila, eslora, contadorTocado, posicion;;
+	private int fila, eslora, contadorTocado, posicion;
+	private final int MAX_ESLORA = 4;
+	private final int MIN_ESLORA = 2;
 	private boolean tocado, hundido;
+	protected Coordenada[] coordenadas;
 
 	/**
 	 * Crea un barco (solo horizontal por ahora)
@@ -23,13 +26,11 @@ public class Barco {
 		this.contadorTocado = 0;
 		this.tocado = false;
 		this.hundido = false;
-		if(esl >= 2) {
-			this.eslora = esl;	
-		} else {
-			// Por defecto, 2 unidades de eslora.
-			this.eslora = 2;
-		}
+		this.setEslora(esl);
 		this.posicion = pos;
+		// Se crea un array con un cierto número de coordenadas
+		// según la eslora del barco.
+		this.coordenadas = new Coordenada[esl];
 	}
 	public int getFila() {
 		return fila;
@@ -43,7 +44,6 @@ public class Barco {
 	public void setPosicion(int posicion) {
 		this.posicion = posicion;
 	}
-	
 	/**
 	 * Tamaño del barco (2, 3 o 4 unidades).
 	 * @return eslora
@@ -51,17 +51,23 @@ public class Barco {
 	public int getEslora() {
 		return eslora;
 	}
-
+	public void setEslora(int eslora) {
+		if(eslora >= MIN_ESLORA && eslora <= MAX_ESLORA) {
+			this.eslora = eslora;	
+		} else {
+			// Por defecto, 2 unidades de eslora.
+			this.eslora = MIN_ESLORA;
+			System.out.println("Eslora máxima: " + this.MAX_ESLORA + ". Se inicializará con el "
+					+ "valor por defecto: " + this.MIN_ESLORA);
+		}
+	}
 	public int getContadorTocado() {
 		return contadorTocado;
 	}
-
 	public boolean isTocado() {
 		return tocado;
 	}
-
 	public boolean isHundido() {
 		return hundido;
 	}
-
 }

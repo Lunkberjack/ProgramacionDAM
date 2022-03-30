@@ -17,15 +17,15 @@ public class PruebaBarcos {
 		// Se deberían añadir de forma aleatoria y sin enseñar las posiciones al usuario.
 		// La B de barco es para hacer más fáciles las pruebas.
 		Barco dreadnought = new Barco(1, 2, 4);
-		Barco yamato = new Barco(4, 4, 2);
+		Barco yamato = new Barco(1, 2, 2);
 		Barco bismarck = new Barco(8, 5, 3);
 		Tablero oceano = new Tablero(8);
-		System.out.println("\n\nAhora se añade un barco al tablero:\n");
 		oceano.aniadirBarco(dreadnought);
 		oceano.aniadirBarco(yamato);
 		oceano.aniadirBarco(bismarck);
 		// No deja añadir más de tres barcos.
 		oceano.aniadirBarco(new Barco(3, 2, 2));
+		oceano.aniadirBarco(new Barco(5, 6, 3));
 
 		
 		Scanner scan = new Scanner(System.in);

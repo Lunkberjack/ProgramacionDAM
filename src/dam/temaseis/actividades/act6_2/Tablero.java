@@ -40,7 +40,7 @@ public class Tablero {
 			System.out.print("  " + (i+1));
 		}
 		System.out.println("\n  --------------------");
-		
+
 		for(int i = 0; i < this.DIMENSION; i++) {
 			// Para los números de fila.
 			System.out.print(i + 1 + "| ");
@@ -56,6 +56,7 @@ public class Tablero {
 	 * Procedimiento que dibuja el tablero actualizado.
 	 */
 	public void mostrarTablero() {
+		System.out.println("ESTADO DEL TABLERO:");
 		System.out.print(" ");
 		for(int i = 0; i < this.DIMENSION; i++) {
 			System.out.print("  " + (i+1));
@@ -69,36 +70,48 @@ public class Tablero {
 			}
 			System.out.println();
 		}
-		// Espaciado entre un tablero y otro.
-		System.out.println("\n\n");
+		// Espaciado
+		System.out.println();
 	}
 	/**
 	 * Comprueba que el barco se pueda añadir y, si es el caso, lo añade.
 	 * @param barco
 	 */
 	public void aniadirBarco(Barco barco) {
+		boolean prohibido = false;
 		int posicionFinal = barco.getPosicion() + barco.getEslora();
 		if (this.numBarcos < this.MAX_BARCOS) {
 			if(posicionFinal > this.DIMENSION) {
-				System.out.println("El barco es demasiado grande para el tablero.\n");
+				System.out.println("El barco es demasiado grande para el tablero.\n\n");
 			} else {
 				for(int i = barco.getFila()-1; i < barco.getFila(); i++) {
 					for (int j = barco.getPosicion()-1; j < posicionFinal-1; j++) {
 						// Así no se superponen barcos.
-						if(this.casillas[i][j] == 'A') {
-							this.casillas[i][j] = 'B';
-						} else {
-							System.out.println("Elige una posición en la que los barcos no se superpongan.\n");
+						if(this.casillas[i][j] != 'A') {
+							prohibido = true;
 						}
 					}
 				}
+				// El barco solo se empieza a "pintar" cuando se confirma que ninguna de sus casillas
+				// está ocupada. Si no, se podría pintar un trozo de barco.
+				if(!prohibido) {
+					for(int i = barco.getFila()-1; i < barco.getFila(); i++) {
+						for (int j = barco.getPosicion()-1; j < posicionFinal-1; j++) {
+							this.casillas[i][j] = 'B';
+						}
+					}
+					// Se añade el barco al array.
+					this.barcos[numBarcos] = barco;
+					this.numBarcos++;
+					this.mostrarTablero();
+					System.out.println("Se ha añadido un barco de coordenadas: \n\n");
+					// Aquí manejar las coordenadas en las que se coloca el barco
+				} else {
+					System.out.println("Elige una posición en la que los barcos no se superpongan.\n\n");
+				}
 			}
-			// Se añade el barco al array.
-			this.barcos[numBarcos] = barco;
-			this.numBarcos++;
-			this.mostrarTablero();	
 		} else {
-			System.out.println("Demasiados barcos. Solo se pueden añadir " + this.MAX_BARCOS + ".\n");
+			System.out.println("Demasiados barcos. Solo se pueden añadir " + this.MAX_BARCOS + ".\n\n");
 			this.mostrarTablero();
 		}
 	}
@@ -110,12 +123,12 @@ public class Tablero {
 	public void recorrerDisparo(int fila, int columna) {
 		if(this.casillas[fila-1][columna-1] == 'B') {
 			this.casillas[fila-1][columna-1] = 'T';
-			System.out.println("Tocado un barco");
+			System.out.println("\nHas TOCADO un barco\n\n");
 			// ¿Cómo se podría saber qué objeto es el tocado?
 			// Para actualizar su propio booleano y controlar 
 			// que se hunda.
 		} else {
-			System.out.println("Agua");
+			System.out.println("Agua\n\n");
 		}
 		this.mostrarTablero();
 	}
