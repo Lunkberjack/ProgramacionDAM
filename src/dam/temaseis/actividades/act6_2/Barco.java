@@ -10,7 +10,7 @@ public class Barco {
 	private int fila, eslora, contadorTocado, posicion, numCoordenadas = 0;
 	private final int MAX_ESLORA = 4;
 	private final int MIN_ESLORA = 2;
-	private boolean tocado, hundido;
+	private boolean hundidoBarco;
 	protected Coordenada[] coordenadas;
 
 	/**
@@ -24,8 +24,7 @@ public class Barco {
 	public Barco(int fila, int pos, int esl) {
 		this.fila = fila;
 		this.contadorTocado = 0;
-		this.tocado = false;
-		this.hundido = false;
+		this.hundidoBarco = false;
 		this.setEslora(esl);
 		this.posicion = pos;
 		// Se crea un array con un cierto número de coordenadas
@@ -42,10 +41,8 @@ public class Barco {
 
 	public void addTocada(Coordenada coord) {
 		for(Coordenada c : this.coordenadas) {
-			System.out.println("Ha entrao al método " + c.getX() + " " + coord.getX());
-			if(c.getX() == coord.getX() && c.getY() == coord.getY()) {
-				coord.tocada = true;
-				System.out.println("Has tocado la coordenada " + coord.toString());
+			if(c.getX() == coord.getX()+1 && c.getY() == coord.getY()+1) {
+				c.tocada = true;
 			}
 		}
 	}
@@ -56,6 +53,9 @@ public class Barco {
 			if(!c.tocada) {
 				hundido = false;
 			}
+		}
+		if(hundido) {
+			this.hundidoBarco = true;
 		}
 		return hundido;
 	}
@@ -92,13 +92,12 @@ public class Barco {
 	public int getContadorTocado() {
 		return contadorTocado;
 	}
-	public boolean isTocado() {
-		return tocado;
-	}
 	public boolean isHundido() {
-		return hundido;
+		return hundidoBarco;
 	}
-
+	/**
+	 * Devuelve todas las coordenadas del barco en formato (1,1).
+	 */
 	public void getCoordenadas() {
 		try {
 			for(Coordenada coord : this.coordenadas) {

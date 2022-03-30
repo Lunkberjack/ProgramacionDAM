@@ -2,10 +2,11 @@ package dam.temaseis.actividades.act6_2;
 import java.util.Scanner;
 /**
  * Clase para probar el juego de hundir el barco.
- * Hay muchas cosas que no tengo claras y otras que no sé por dónde
- * empezar a implementar. Sin embargo, algo necesario para jugar,
- * (no para las pruebas) es hacer invisibles las letras B de barco
- * e ir descubriéndolas a medida que el jugador dispare.
+ * 
+ * El tercer parámetro es el número de casillas que ocupará el barco.
+ * Se deberían añadir de forma aleatoria y sin enseñar las posiciones al usuario.
+ * La B de barco es para hacer más fáciles las pruebas.
+ * 
  * @author LuciaLM
  * @version 1.0
  */
@@ -13,9 +14,6 @@ public class PruebaBarcos {
 
 	public static void main(String[] args) {
 		int filaDisparo, columnaDisparo;
-		// El tercer parámetro es el número de casillas que ocupará el barco.
-		// Se deberían añadir de forma aleatoria y sin enseñar las posiciones al usuario.
-		// La B de barco es para hacer más fáciles las pruebas.
 		Barco dreadnought = new Barco(1, 2, 4);
 		// Dará error. Por experiencia. He añadido manejo de excepciones.
 		dreadnought.getCoordenadas();
@@ -36,7 +34,8 @@ public class PruebaBarcos {
 
 		
 		Scanner scan = new Scanner(System.in);
-		String respuesta;
+		boolean ganado = false;
+		String respuesta = "";
 		do {
 			// Fila correcta.
 			do {
@@ -49,10 +48,14 @@ public class PruebaBarcos {
 				columnaDisparo = scan.nextInt();
 			} while(columnaDisparo < 0 || columnaDisparo > oceano.getDIMENSION());
 			oceano.recorrerDisparo(filaDisparo, columnaDisparo);
-			// Confirmación.
-			System.out.println("¿Disparar de nuevo? (si/no): ");
-			respuesta = scan.next();
-		} while(respuesta.equalsIgnoreCase("si") || respuesta.equalsIgnoreCase("sí"));
+			ganado = oceano.comprobarGanado();
+			if(ganado) {
+				System.out.println("Felicidades, has hundido TODOS los barcos :)");
+			} else {
+				System.out.println("¿Disparar de nuevo? (si/no): ");
+				respuesta = scan.next();
+			}
+		} while((respuesta.equalsIgnoreCase("si") || respuesta.equalsIgnoreCase("sí")) && ganado == false);
 		scan.close();
 	}
 }

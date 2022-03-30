@@ -1,6 +1,6 @@
 package dam.temaseis.actividades.act6_2;
 /**
- * Tablero para el juego de hundir el barco.
+ * Tablero para el juego de hundir los barcos.
  * @author LuciaLM
  * @version 1.0
  */
@@ -85,6 +85,7 @@ public class Tablero {
 			if(posicionFinal > this.DIMENSION) {
 				System.out.println("El barco es demasiado grande para el tablero.\n\n");
 			} else {
+				// Solo barcos horizontales.
 				for(int i = barco.getFila()-1; i < barco.getFila(); i++) {
 					for (int j = barco.getPosicion()-1; j < posicionFinal-1; j++) {
 						// Así no se superponen barcos.
@@ -125,7 +126,7 @@ public class Tablero {
 	public void recorrerDisparo(int fila, int columna) {
 		Coordenada coordenada = new Coordenada(fila-1, columna-1);
 		if(this.casillas[coordenada.getX()][coordenada.getY()] == 'B') {
-			this.casillas[fila-1][columna-1] = 'T';
+			this.casillas[coordenada.getX()][coordenada.getY()] = 'T';
 			System.out.println("\nHas TOCADO un barco\n\n");
 			for(Barco b : this.barcos) {
 				b.addTocada(coordenada);
@@ -133,13 +134,38 @@ public class Tablero {
 			// A ver si toca alguno de los barcos.
 			for(Barco b : this.barcos) {
 				if(b.comprobarHundido()) {
-					System.out.println("Has HUNDIDO un barco :)");
+					for(Coordenada c : b.coordenadas) {
+						this.casillas[c.getX()-1][c.getY()-1] = 'H';
+						// Ya no están tocadas: así no aparece el mensaje
+						// de que has hundido un barco aunque sea un turno
+						// posterior.
+						c.tocada = false;
+					}
+					System.out.println("Has HUNDIDO un barco :)\n");
 				}
 			}
+		} else if (this.casillas[coordenada.getX()][coordenada.getY()] == 'A'){
+			System.out.println("Agua.\n");
 		} else {
-			System.out.println("Agua\n\n");
+			System.out.println("Has disparado a un barco o a una parte ya hundidos.\n");
 		}
 		this.mostrarTablero();
+	}
+	
+	
+	/**
+	 * Se comprueba que todos los barcos se hayan hundido.
+	 * @return ganado
+	 */
+	public boolean comprobarGanado() {
+		boolean ganado = true;
+		for(Barco b : this.barcos) {
+			// Si algún barco no se ha hundido, no se ha ganado.
+			if(!b.isHundido()) {
+				ganado = false;
+			}
+		}
+		return ganado;
 	}
 
 	public Barco[] getBarcos() {

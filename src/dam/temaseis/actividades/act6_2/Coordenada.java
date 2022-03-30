@@ -1,5 +1,9 @@
 package dam.temaseis.actividades.act6_2;
-
+/**
+ * Coordenadas de un barco. Puede estar tocada o no, y tiene dos dimensiones.
+ * @author LuciaLM
+ * @version 1.0
+ */
 public class Coordenada {
 	private int x, y;
 	boolean tocada;
