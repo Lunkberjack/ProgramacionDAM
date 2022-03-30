@@ -14,7 +14,8 @@ public class PruebaBarcos {
 
 	public static void main(String[] args) {
 		int filaDisparo, columnaDisparo;
-		Barco dreadnought = new Barco(1, 2, 4);
+		Tablero oceano = new Tablero(1234);
+		/*Barco dreadnought = new Barco(1, 2, 4);
 		// Dará error. Por experiencia. He añadido manejo de excepciones.
 		dreadnought.getCoordenadas();
 		// El Yamato se superpone y no se coloca en el tablero.
@@ -31,7 +32,12 @@ public class PruebaBarcos {
 		Barco akagi = new Barco(3, 2, 2);
 		oceano.aniadirBarco(akagi);
 		oceano.aniadirBarco(new Barco(5, 6, 3));
-
+		oceano.generarBarco();
+		 */
+		while(oceano.getNumBarcos() < oceano.getMAX_BARCOS()) {
+			// Generará tres barcos aleatorios que no se superpongan.
+			oceano.aniadirBarco(oceano.generarBarco());
+		}
 		
 		Scanner scan = new Scanner(System.in);
 		boolean ganado = false;

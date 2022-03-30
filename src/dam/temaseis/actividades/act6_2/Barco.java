@@ -8,11 +8,9 @@ package dam.temaseis.actividades.act6_2;
  */
 public class Barco {
 	private int fila, eslora, contadorTocado, posicion, numCoordenadas = 0;
-	private final int MAX_ESLORA = 4;
-	private final int MIN_ESLORA = 2;
-	private boolean hundidoBarco;
-	protected Coordenada[] coordenadas;
-
+	// Las vamos a llamar desde la clase Tablero antes de instanciar el barco.
+	private static final int MAX_ESLORA = 4;
+	private static final int MIN_ESLORA = 2;
 	/**
 	 * Crea un barco (solo horizontal por ahora)
 	 * especificando la fila en la que está, la posición
@@ -80,13 +78,13 @@ public class Barco {
 		return eslora;
 	}
 	public void setEslora(int eslora) {
-		if(eslora >= MIN_ESLORA && eslora <= MAX_ESLORA) {
+		if(eslora >= Barco.MIN_ESLORA && eslora <= Barco.MAX_ESLORA) {
 			this.eslora = eslora;	
 		} else {
 			// Por defecto, 2 unidades de eslora.
-			this.eslora = MIN_ESLORA;
-			System.out.println("Eslora máxima: " + this.MAX_ESLORA + ". Se inicializará con el "
-					+ "valor por defecto: " + this.MIN_ESLORA);
+			this.eslora = Barco.MIN_ESLORA;
+			System.out.println("Eslora máxima: " + Barco.MAX_ESLORA + ". Se inicializará con el "
+					+ "valor por defecto: " + Barco.MIN_ESLORA);
 		}
 	}
 	public int getContadorTocado() {
@@ -107,4 +105,21 @@ public class Barco {
 			System.out.println("El barco todavía no ha sido añadido al tablero.");
 		}
 	}
+	public int getNumCoordenadas() {
+		return numCoordenadas;
+	}
+
+	public static int getMaxEslora() {
+		return MAX_ESLORA;
+	}
+
+	public static int getMinEslora() {
+		return MIN_ESLORA;
+	}
+
+	public boolean isHundidoBarco() {
+		return hundidoBarco;
+	}
+	private boolean hundidoBarco;
+	protected Coordenada[] coordenadas;
 }
