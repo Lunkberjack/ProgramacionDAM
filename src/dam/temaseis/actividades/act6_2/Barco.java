@@ -40,7 +40,7 @@ public class Barco {
 	public void addTocada(Coordenada coord) {
 		for(Coordenada c : this.coordenadas) {
 			if(c.getX() == coord.getX()+1 && c.getY() == coord.getY()+1) {
-				c.tocada = true;
+				c.setTocada(true);
 			}
 		}
 	}
@@ -48,7 +48,7 @@ public class Barco {
 	public boolean comprobarHundido() {
 		boolean hundido = true;
 		for(Coordenada c : this.coordenadas) {
-			if(!c.tocada) {
+			if(!c.isTocada()) {
 				hundido = false;
 			}
 		}

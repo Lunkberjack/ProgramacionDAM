@@ -13,33 +13,23 @@ import java.util.Scanner;
 public class PruebaBarcos {
 
 	public static void main(String[] args) {
-		int filaDisparo, columnaDisparo;
-		Tablero oceano = new Tablero(1234);
-		/*Barco dreadnought = new Barco(1, 2, 4);
-		// Dará error. Por experiencia. He añadido manejo de excepciones.
-		dreadnought.getCoordenadas();
-		// El Yamato se superpone y no se coloca en el tablero.
-		Barco yamato = new Barco(1, 2, 2);
-		Barco bismarck = new Barco(8, 5, 3);
+		Scanner scan = new Scanner(System.in);
+		int dimTablero, filaDisparo, columnaDisparo;
 		Tablero oceano = new Tablero(8);
-		oceano.aniadirBarco(dreadnought);
-		System.out.println("Coordenadas del Dreadnought: ");
-		dreadnought.getCoordenadas();
-		oceano.aniadirBarco(yamato);
-		oceano.aniadirBarco(bismarck);
-		// No deja añadir más de tres barcos. (Recordemos que uno no se pudo
-		// colocar y por tanto no son cuatro, sino tres).
-		Barco akagi = new Barco(3, 2, 2);
-		oceano.aniadirBarco(akagi);
-		oceano.aniadirBarco(new Barco(5, 6, 3));
-		oceano.generarBarco();
-		 */
+		System.out.println("Introduce un tamaño de tablero (4, 6 u 8): ");
+		dimTablero = scan.nextInt();
+		if((dimTablero == 4) || (dimTablero == 6) || (dimTablero == 8)) {
+			oceano = new Tablero(dimTablero);
+		} else {
+			System.out.println("El tablero se iniciará con el valor por defecto, 8.");
+		}
+		oceano.inicializarCasillas();
+
 		while(oceano.getNumBarcos() < oceano.getMAX_BARCOS()) {
 			// Generará tres barcos aleatorios que no se superpongan.
 			oceano.aniadirBarco(oceano.generarBarco());
 		}
 		
-		Scanner scan = new Scanner(System.in);
 		boolean ganado = false;
 		String respuesta = "";
 		do {
@@ -62,6 +52,6 @@ public class PruebaBarcos {
 				respuesta = scan.next();
 			}
 		} while((respuesta.equalsIgnoreCase("si") || respuesta.equalsIgnoreCase("sí")) && ganado == false);
-		scan.close();
-	}
+		scan.close();		
+	}		
 }

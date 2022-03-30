@@ -12,6 +12,7 @@ public class Tablero {
 	private final int DIMENSION;
 	private Barco[] barcos;
 	private char[][] casillas;
+	private Coordenada[] coordenadas;
 	private int numBarcos = 0;
 
 	public Tablero(int dimension) {
@@ -31,6 +32,7 @@ public class Tablero {
 			break;
 		}
 		this.casillas = new char[this.DIMENSION][this.DIMENSION];
+		this.coordenadas = new Coordenada[this.DIMENSION*this.DIMENSION];
 		this.rellenarTablero();
 	}
 	/**
@@ -79,25 +81,38 @@ public class Tablero {
 	}
 	
 	/**
+	 * Función que implementé pero no tiene funcionalidad porque
+	 * no pude usarla como tenía pensado.
+	 * Tener en cuenta que la coordenada[0] es (1,1).
+	 */
+	public void inicializarCasillas() {
+		Coordenada coordAniadir = new Coordenada(0,0);
+		for(int i = 0; i < this.DIMENSION; i++) {
+			coordAniadir.setX(i+1);
+			for(int j = 0; j < this.DIMENSION; j++) {
+				coordAniadir.setY(j+1);
+				coordAniadir.setAgua(true);
+				this.coordenadas[i] = coordAniadir;
+			}
+		}
+	}
+	
+	/**
 	 * Genera un barco con parámetros aleatorios.
-	 * @return
+	 * @return barco
 	 */
 	public Barco generarBarco() {
 		Random alea = new Random();
 		int linea, posicion, eslora;
 		// El mínimo es 1.
 		linea = alea.nextInt(this.DIMENSION) + 1;
-		posicion = alea.nextInt((this.DIMENSION) + 1);
+		posicion = alea.nextInt(this.DIMENSION) + 1;
 		// De que la eslora no pueda ser menor a 2 o mayor a 4 se encarga el setEslora. Con el +1
 		// nos aseguramos de que se llegue a 4 unidades. 
 		eslora = alea.nextInt((Barco.getMaxEslora()+1 - Barco.getMinEslora()) + Barco.getMinEslora());
 		Barco barco = new Barco(linea, posicion, eslora);
 		System.out.println("Barco aleatorio, linea: " + linea + ", posicion: " + posicion + ", eslora: " + barco.getEslora());
 		return barco;
-	}
-	
-	public int getNumBarcos() {
-		return numBarcos;
 	}
 	/**
 	 * Comprueba que el barco se pueda añadir y, si es el caso, lo añade.
@@ -132,7 +147,8 @@ public class Tablero {
 					this.barcos[numBarcos] = barco;
 					this.numBarcos++;
 					this.mostrarTablero();
-					System.out.println("Se ha añadido un barco de coordenadas: \n\n");
+					System.out.println("Se ha añadido un barco de coordenadas:");
+					barco.getCoordenadas();
 					// Aquí manejar las coordenadas en las que se coloca el barco
 				} else {
 					System.out.println("Elige una posición en la que los barcos no se superpongan.\n\n");
@@ -164,7 +180,7 @@ public class Tablero {
 						// Ya no están tocadas: así no aparece el mensaje
 						// de que has hundido un barco aunque sea un turno
 						// posterior.
-						c.tocada = false;
+						c.setTocada(false);
 					}
 					System.out.println("Has HUNDIDO un barco :)\n");
 				}
@@ -203,6 +219,9 @@ public class Tablero {
 	}
 	public void setCasillas(char[][] casillas) {
 		this.casillas = casillas;
+	}
+	public int getNumBarcos() {
+		return numBarcos;
 	}
 	public int getMAX_BARCOS() {
 		return MAX_BARCOS;
