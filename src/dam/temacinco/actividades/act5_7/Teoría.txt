@@ -1,0 +1,11 @@
+Responde a la siguiente pregunta: ¿En qué punto del código has usado polimorfismo? ¿En qué ha consistido?
+Añade un fichero de texto a tu proyecto Eclipse con la respuesta a estas preguntas. Debes entregar el proyecto
+Eclipse completo comprimido.
+
+	Se ha usado el polimorfismo tanto en la definición de los métodos abstractos como en el método toString(),
+	ya que aunque tengan el mismo nombre estos métodos se comportan de una manera u otra dependiendo de la 
+	clase o subclase en la que se los invoque. Por ejemplo, si usamos getArea() en un círculo, se comportará
+	como si fuera un método completamente diferente que si lo invocamos en un rectángulo.
+	
+	Los toString() también se comportan de diferente forma e imprimen por pantalla diferentes configuraciones
+	de atributos dependiendo de la clase en la que los usemos.
