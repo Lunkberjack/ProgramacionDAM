@@ -1,7 +1,6 @@
 package dam.temaseis.listas;
 /**
- * Creacion de una lista enlazada en Java, sin punteros y etc.
- * Se usa la programacion generica.
+ * Cada nodo de una lista enlazada en Java.
  * @author lucia
  * @version 1.0
  * @param <T>
