@@ -8,7 +8,7 @@ public class ListaEnlazada {
 	private ArrayList<Empleado> empleados;
 	
 	public ListaEnlazada() {
-		this.empleados = new ArrayList<Empleado>();
+		this.setEmpleados(new ArrayList<Empleado>());
 	}
 	
 	public static void main(String[] args) {
@@ -23,15 +23,15 @@ public class ListaEnlazada {
 		
 		// Muestra todos los empleados(cada uno con el formato personalizado)
 		// con el formato toString() de las ArrayList en conjunto.
-		System.out.println(lista.empleados);
+		System.out.println(lista.getEmpleados());
 		
 		lista.buscarNif("23456789B");
 		lista.modificarEmpleado("23456789B");
 		lista.ordenarLista();
-		System.out.println(lista.empleados);
+		System.out.println(lista.getEmpleados());
 		
 		lista.eliminarEmp("23456789B");
-		System.out.println(lista.empleados);
+		System.out.println(lista.getEmpleados());
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class ListaEnlazada {
 	 * @return
 	 */
 	public String buscarNif(String nif) {
-		for(Empleado x : empleados) {
+		for(Empleado x : getEmpleados()) {
 			if(x.nif == nif) {
 				System.out.println(x.toString());
 				return nif;
@@ -58,7 +58,7 @@ public class ListaEnlazada {
 	 */
 	public void modificarEmpleado(String nif) {
 		if(buscarNif(nif) != null) {
-			for(Empleado x : empleados) {
+			for(Empleado x : getEmpleados()) {
 				if(x.nif == nif) {
 					int respuesta;
 					Scanner scan = new Scanner(System.in);
@@ -116,11 +116,11 @@ public class ListaEnlazada {
 	 */
 	public void eliminarEmp(String nif) {
 		if(buscarNif(nif) != null) {
-			for(Empleado x : empleados) {
+			for(Empleado x : getEmpleados()) {
 				if(x.nif == nif) {
 					// Se llama al método ya implementado.
 					// También se podría declarar como nulo, aunque dejaría un hueco.
-					this.empleados.remove(x);
+					this.getEmpleados().remove(x);
 				}
 			}
 		}
@@ -134,10 +134,18 @@ public class ListaEnlazada {
 	 * @param emp
 	 */
 	public void aniadirEmp(Empleado emp) {
-		this.empleados.add(emp);
+		this.getEmpleados().add(emp);
 	}
 	
 	public void ordenarLista() {
-		Collections.sort(this.empleados);
+		Collections.sort(this.getEmpleados());
+	}
+
+	public ArrayList<Empleado> getEmpleados() {
+		return empleados;
+	}
+
+	public void setEmpleados(ArrayList<Empleado> empleados) {
+		this.empleados = empleados;
 	}
 }
